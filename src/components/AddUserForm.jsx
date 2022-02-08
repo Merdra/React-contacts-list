@@ -29,8 +29,7 @@ handleSubmit =(e) => {
   render() {
     return (
       <div>
-          <h3>Contacts Form</h3>
-        <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={this.handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Name</Form.Label>
             <Form.Control 
@@ -63,7 +62,7 @@ handleSubmit =(e) => {
             onChange={this.handleChange}
             />
           </Form.Group>
-          <Button variant="primary" type="submit">
+          <Button variant="outline-primary" type="submit">
             Submit
           </Button>
         </Form>

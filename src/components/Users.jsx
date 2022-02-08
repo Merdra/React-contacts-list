@@ -8,7 +8,14 @@ const Users = (props) => {
       <Row>
         {
             props.usersData.map((user, index) => {
-                return <User userInfo={user} key={index} />;
+                return ( 
+                <User 
+                  userInfo={user} 
+                  key={user.id} 
+                  deleteUser={props.deleteUser}
+                  editUser={props.editUser}
+                  />
+                );  
             })
         }
       </Row>
