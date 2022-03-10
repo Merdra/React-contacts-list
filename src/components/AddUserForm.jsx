@@ -18,6 +18,14 @@ class AddUserForm extends Component {
     }
 handleSubmit =(e) => {
     e.preventDefault();
+
+    const user = {
+      name: this.state.name,
+      location: this.state.location,
+      phone: this.state.phone,
+      id: this.state.id,
+    }
+
     this.props.addUser(this.state);
     this.setState({
         name: "",

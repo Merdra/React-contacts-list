@@ -66,7 +66,7 @@ handleSubmit =(e) => {
             />
           </Form.Group>
           <Button variant="outline-primary" type="submit">
-            Submit
+            Save Changes
           </Button>
         </Form>
       </div>

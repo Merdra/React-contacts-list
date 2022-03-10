@@ -15,12 +15,12 @@ const Users = (props) => {
                   deleteUser={props.deleteUser}
                   editUser={props.editUser}
                   />
-                );  
+                );
             })
-        }
+          }
       </Row>
     </Container>
   );
 };
-
+  
 export default Users;
