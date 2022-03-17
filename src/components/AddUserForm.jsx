@@ -1,51 +1,62 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import {Form, Button} from 'react-bootstrap';
+import {v4 as uuid} from "uuid";
+import {connect} from "react-redux";
+import {addUserAction} from "../action/action";
+import { useDispatch} from "react-redux";
 
-class AddUserForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            name: "",
-            location: "",
-            phone: "",
-        }
-    }
-    handleChange = (e) => {
-        e.preventDefault();
-        this.setState({
-         [e.target.name] : e.target.value
-        })
-    }
-handleSubmit =(e) => {
+
+const AddUserForm = (props) => {
+  console.log (props);
+  const dispatch = useDispatch();
+  const [name, setName] = useState("");
+  const [location, setLocation] = useState("");
+  const [phone, setPhone] = useState("");
+
+
+    // handleChange = (e) => {
+    //     e.preventDefault();
+    //     this.setState({
+    //      [e.target.name] : e.target.value
+    //     })
+    // }
+const  handleSubmit =(e) => {
     e.preventDefault();
 
-    const user = {
-      name: this.state.name,
-      location: this.state.location,
-      phone: this.state.phone,
-      id: this.state.id,
-    }
+    let newUser = {
+      id: uuid(),
+      name: name,
+      location: location,
+      phone: phone,
+    };
 
-    this.props.addUser(this.state);
-    this.setState({
-        name: "",
-        location: "",
-        phone: "",
-    })
-}
+    dispatch(addUserAction(newUser));
 
-  render() {
+    props.addUser(newUser);
+    setName("");
+    setLocation("");
+    setPhone("");
+  }; 
+
+    // this.props.addUser(this.state);
+    // this.setState({
+    //     name: "",
+    //     location: "",
+    //     phone: "",
+    // })
+
     return (
       <div>
-          <Form onSubmit={this.handleSubmit}>
+          <Form onSubmit={handleSubmit}>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Name</Form.Label>
             <Form.Control 
             type="text" 
             placeholder="Enter name" 
-            name="name" 
-            value={this.state.name}
-            onChange={this.handleChange}
+            value={name}
+            onChange={(e) => {
+              setName(e.target.value);              
+            }}
             />
           </Form.Group>
 
@@ -55,8 +66,10 @@ handleSubmit =(e) => {
             type="text" 
             placeholder="Enter your location" 
             name="location"
-            value={this.state.location} 
-            onChange={this.handleChange}
+            value={location} 
+            onChange={(e) => {
+            setLocation(e.target.value);              
+            }}
             />
           </Form.Group>
 
@@ -66,17 +79,22 @@ handleSubmit =(e) => {
             type="number" 
             placeholder="Phone Number" 
             name="phone" 
-            value={this.state.phone}
-            onChange={this.handleChange}
+            value={phone}
+            onChange={(e) => {
+            setPhone(e.target.value);              
+            }}
             />
           </Form.Group>
-          <Button variant="outline-primary" type="submit">
+          <Button variant="primary" type="submit">
             Submit
           </Button>
         </Form>
       </div>
     );
-  }
-}
+  }; 
 
-export default AddUserForm;
+  const sendActionAsProps = {
+    createUser: addUserAction,
+  };
+  
+  export default connect(null, sendActionAsProps)(AddUserForm);
